@@ -4,13 +4,13 @@ import java.util.Date;
 
 import utils.DataUtil;
 
-public class movimentacao {
+public class Movimentacao{
     private String descricao;
     private Date data;
     private double valor;
 
     
-    public movimentacao(String descricao, double valor) {
+    public Movimentacao(String descricao, double valor) {
         this.descricao = descricao;
         this.data = new Date();
         this.valor = valor;

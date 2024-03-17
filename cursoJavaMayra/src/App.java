@@ -1,5 +1,4 @@
 import model.contaPoupança;
-import model.movimentacao;
 import model.contaCorrente;
 import utils.DataUtil;
 
@@ -47,10 +46,11 @@ public class App {
     //EXTRATO BANCARIO É COMPOSTO POR MOVIMENTAÇOES BANCARIAS; 
     //TER ALGO QUE POSSA SER A MOVIMENTAÇÃO(VALOR, DATA, DESCRIÇÃO SOBRE A MOVIMENTAÇÃO);
     //TER UMA LISTA DE MOVIMENTAÇOES;
-
- movimentacao movimentacao = new movimentacao("saque" , 100.00);
-
- System.out.println(movimentacao.toString());
+        
+    //conta corrente
+    conta.imprimirExtrato();
+    //conta poupança
+    conta2.imprimirExtrato();
 
     }
 }

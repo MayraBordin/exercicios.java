@@ -1,22 +1,29 @@
  package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 
+ // classe abstract não pode ser instanciada, serve apenas como um modelo para outras classes que vão herdar informaçoes dela.
 public  abstract class contaBancaria {
-    // classe abstract não pode ser instanciada, serve apenas como um modelo para outras classes que vão herdar informaçoes dela.
+   
 //#region Atributos
-    private String conta;
 
-    private int digito;
+//Os atributos estão todos protected, por que esta classe é uma classe abstract;
+//e para que esta classe e seus filhos(quem herdou esta classe) possam mexer ou modificar, os seus atributos tem que estar
+    protected String conta;
 
-    private String agencia;
+    protected int digito;
 
-    private Double saldo;
+    protected String agencia;
 
-    private Date dataAbertura;
+    protected Double saldo;
 
-    private Double VALOR_MINIMO_DEPOSITO = 10.0;
+    protected Date dataAbertura;
+
+    protected ArrayList <Movimentacao> movimentar;
+
+    protected Double VALOR_MINIMO_DEPOSITO = 10.0;
 //#endregion
 //#region Construtor
     public contaBancaria(String conta, int digito, String agencia, Double saldoInicial) {
@@ -25,6 +32,11 @@ public  abstract class contaBancaria {
         this.agencia = agencia;
         this.saldo = saldoInicial;
         this.dataAbertura= new Date();
+        // se não instanciar um ArrayList, vai dar um exception de nullPOinterException; ele vai estar nulo;
+        this. movimentar = new ArrayList<Movimentacao>();
+        Movimentacao movimentacao = new Movimentacao("Abretura de conta", saldoInicial);
+        // metodo .add ele é usado para inserir algo no ArrayList();
+        this.movimentar.add(movimentacao);
     }
 //#endregion
 //#region Getters and Setters
@@ -79,6 +91,9 @@ if(valor< VALOR_MINIMO_DEPOSITO){
 }
 this.saldo += valor;
 //efetua o deposito, pegando o saldo e adicionando o valor;
+// criando uma nova movimentação e logo apos add no arrayList;
+Movimentacao movimentar = new Movimentacao("Deposito", valor);
+this.movimentar.add(movimentar);
 }
 public Double Sacar (Double valor){
 
@@ -89,6 +104,11 @@ public Double Sacar (Double valor){
     }
 //efetua o saque, retirando o valor desejado do saldo atual; 
     this.saldo-= valor;
+
+    // criando uma nova movimentação e logo apos add no arrayList;
+    Movimentacao movimentar = new Movimentacao("Deposito", valor);
+    this.movimentar.add(movimentar);
+
 // retorna o valor que foi sacado da conta;
     return valor; 
 }
@@ -97,9 +117,14 @@ public  void transferir (Double valor, contaBancaria contaDestino ){
     this.Sacar(valor);
 // deposita o valor sacado na conta de destina;
     contaDestino.Depositar(valor);
+
 }
+
+//metodo abstract obriga as classes que estão herdando ele, a implementarem ele; 
+public abstract void imprimirExtrato();
 //#endregion
 }
+
 
 
 
